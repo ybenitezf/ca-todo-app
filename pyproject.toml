@@ -8,6 +8,7 @@ readme = "README.md"
 
 packages = [
     {include = "development"},
+    {include = "todo/entities",from = "components"},
 ]
 
 [tool.poetry.dependencies]
@@ -51,6 +52,9 @@ warn_unused_ignores = true
 check_untyped_defs = true
 disallow_untyped_calls = true
 exclude = "(?x)(^test/|^projects/)"
+
+[tool.pytest.ini_options]
+asyncio_default_fixture_loop_scope = "session"
 
 [build-system]
 requires = ["poetry-core"]
