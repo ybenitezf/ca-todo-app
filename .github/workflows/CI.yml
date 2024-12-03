@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  tests:
+    name: run project tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        id: setup-python
+        with:
+          python-version: "3.11"
+      - name: Setup dependencies
+        run: |
+          pipx install poetry
+          poetry self add poetry-multiproject-plugin
+          poetry self add poetry-polylith-plugin
+          poetry self add poetry-plugin-export
+      - name: install package
+        run: |
+          poetry install
+      - name: run tests
+        run: |
+          poetry run pytest
